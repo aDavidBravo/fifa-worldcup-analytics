@@ -15,7 +15,10 @@
       "Read(//c/Users/David/.ssh/**)",
       "Bash(where winget.exe)",
       "Bash(powershell.exe -NoProfile -Command 'winget list --id GitHub.cli 2>$null | Select-String GitHub')",
-      "PowerShell(winget install --id GitHub.cli --accept-source-agreements --accept-package-agreements --silent 2>&1)"
+      "PowerShell(winget install --id GitHub.cli --accept-source-agreements --accept-package-agreements --silent 2>&1)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://adavidbravo.github.io/fifa-worldcup-analytics/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://adavidbravo.github.io/fifa-worldcup-analytics/data/data.js)",
+      "Bash(curl -s https://adavidbravo.github.io/fifa-worldcup-analytics/)"
     ]
   }
 }

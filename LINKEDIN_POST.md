@@ -26,8 +26,8 @@ vs CONMEBOL 10), and the all-time records
 Stack: **Python (pandas/NumPy) → JSON pipeline → Apache ECharts**. Fully
 reproducible, zero backend, one command to refresh as results come in.
 
-🔗 Live dashboard: [YOUR-GITHUB-PAGES-URL]
-💻 Code: [YOUR-REPO-URL]
+🔗 Live dashboard: https://adavidbravo.github.io/fifa-worldcup-analytics/
+💻 Code: https://github.com/aDavidBravo/fifa-worldcup-analytics
 
 Will the model beat the pundits? We'll know on July 19 at MetLife Stadium. 🏆
 
