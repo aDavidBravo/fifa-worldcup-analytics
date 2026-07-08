@@ -18,7 +18,22 @@
       "PowerShell(winget install --id GitHub.cli --accept-source-agreements --accept-package-agreements --silent 2>&1)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://adavidbravo.github.io/fifa-worldcup-analytics/)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://adavidbravo.github.io/fifa-worldcup-analytics/data/data.js)",
-      "Bash(curl -s https://adavidbravo.github.io/fifa-worldcup-analytics/)"
+      "Bash(curl -s https://adavidbravo.github.io/fifa-worldcup-analytics/)",
+      "WebFetch(domain:www.bravoaidatastudio.com)",
+      "Bash(cd \"/c/Users/David/.claude/projects/Pagina Web\" && echo \"=== credential-ish files ===\" && find . -maxdepth 3 -type f \\\\\\( -name \"*.env*\" -o -name \"wp-config*.php\" -o -iname \"*credential*\" -o -iname \"*secret*\" -o -name \"*.pem\" -o -name \"application-password*\" \\\\\\) 2>/dev/null | grep -v node_modules | head -20; echo \"=== mentions of app password / wp-json / auth in project ===\" ; grep -rIl -i \"application password\\\\|wp-admin\\\\|X-WP-Nonce\\\\|Authorization: Basic\\\\|wp_users\\\\|APP_PASSWORD\" . 2>/dev/null | grep -v node_modules | head -10; echo \"=== done ===\")",
+      "mcp__mcp-registry__list_connectors",
+      "Bash(curl -s -o /dev/null -w \"namespaces endpoint: %{http_code}\\\\n\" \"https://bravoaidatastudio.com/wp-json/\")",
+      "Bash(curl -s -o /dev/null -w \"bvai dashboard \\(unauth\\): %{http_code}\\\\n\" \"https://bravoaidatastudio.com/wp-json/bvai/v1/dashboard?name=centro3d\")",
+      "mcp__claude-in-chrome__list_connected_browsers",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__javascript_tool",
+      "mcp__claude-in-chrome__computer",
+      "Bash(node -e ' *)",
+      "Bash(mkdir -p docs/flags)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(rm -f docs/flags/*.svg)"
     ]
   }
 }

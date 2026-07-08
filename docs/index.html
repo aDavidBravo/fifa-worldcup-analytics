@@ -6,6 +6,7 @@
 <title>FIFA World Cup Analytics — 1930 to 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="data/data.js"></script>
+<script src="data/flags.js"></script>
 <style>
   :root {
     --page: #0d0d0d;
@@ -88,6 +89,15 @@
   td { padding: 7px 10px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
   tr:last-child td { border-bottom: none; }
   td.team { font-weight: 600; }
+  /* flags */
+  .flag { width: 21px; height: 14px; border-radius: 2px; object-fit: cover;
+          vertical-align: -2px; margin-right: 8px; box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
+          background: #2c2c2a; }
+  .flag.sm { width: 18px; height: 12px; margin-right: 6px; }
+  .cdot { display: inline-block; width: 11px; height: 11px; border-radius: 3px;
+          vertical-align: 0px; margin-right: 8px; box-shadow: 0 0 0 1px rgba(255,255,255,0.15); }
+  .tie .row .side { display: flex; align-items: center; min-width: 0; }
+  .tie .row .side span.nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .chip { display: inline-block; font-size: 11px; color: var(--ink-2);
           border: 1px solid var(--border); border-radius: 99px; padding: 0 8px; margin-left: 6px; }
   footer { border-top: 1px solid var(--border); margin-top: 64px; padding: 24px 32px 48px;
@@ -250,6 +260,32 @@ const C = { blue: css('--blue'), aqua: css('--aqua'), yellow: css('--yellow'),
             ink: css('--ink'), ink2: css('--ink-2'), muted: css('--muted'),
             grid: css('--grid'), surface: css('--surface') };
 
+// ---- flags & country colors ----
+const F = W.flags || {};
+const colorOf = t => (F[t] && F[t].c1) || C.blue;
+function hexA(hex, a) {
+  const h = (hex || '').replace('#', '');
+  if (h.length !== 6) return hex;
+  return `rgba(${parseInt(h.slice(0,2),16)},${parseInt(h.slice(2,4),16)},${parseInt(h.slice(4,6),16)},${a})`;
+}
+function flagHTML(team, cls) {
+  const f = F[team];
+  if (f && f.flag) return `<img class="flag ${cls || ''}" src="${f.flag}" alt="${team}" loading="lazy">`;
+  if (f) return `<span class="cdot" style="background:${f.c1}"></span>`;
+  return '';
+}
+const richKey = iso => 'f_' + iso.replace(/-/g, '_');
+function flagRich(teams) {
+  const rich = {};
+  teams.forEach(t => { const f = F[t]; if (f && f.flag) rich[richKey(f.iso)] = { backgroundColor: { image: f.flag }, height: 13, width: 20 }; });
+  return rich;
+}
+const teamLabel = name => { const f = F[name]; return (f && f.flag) ? `{${richKey(f.iso)}|}  ${name}` : `  ${name}`; };
+// for composite "Player · Team" axis labels
+const teamFromComposite = v => { const p = v.split('·'); return p.length > 1 ? p[p.length - 1].trim() : v; };
+function comboLabel(v) { const t = teamFromComposite(v); const f = F[t]; return (f && f.flag) ? `{${richKey(f.iso)}|}  ${v}` : `  ${v}`; }
+const CONF_COLOR = { UEFA: C.blue, CONMEBOL: C.aqua, CAF: C.yellow, AFC: C.red, CONCACAF: C.violet, OFC: C.muted };
+
 // ---- KPI row (historical + live tournament) ----
 const H = W.historical, T = W.wc2026, P = W.predictions;
 const kpiData = [
@@ -257,7 +293,7 @@ const kpiData = [
   [(H.kpis.matches + T.kpis.matches_played).toLocaleString(), 'matches analyzed'],
   [(H.kpis.goals + T.kpis.goals).toLocaleString(), 'goals scored'],
   [T.kpis.goals_per_match, 'goals/match in 2026'],
-  [P.champion_probs[0].team, `title favorite — ${P.champion_probs[0].p_champion}%`],
+  [`${flagHTML(P.champion_probs[0].team)}${P.champion_probs[0].team}`, `title favorite — ${P.champion_probs[0].p_champion}%`],
 ];
 document.getElementById('kpis').innerHTML = kpiData
   .map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
@@ -288,22 +324,24 @@ addEventListener('resize', () => charts.forEach(c => c.resize()));
 const cp = [...P.champion_probs].reverse();
 mk('champChart', {
   xAxis: { type: 'value', max: 35, ...axis({ axisLabel: { color: C.muted, formatter: '{value}%' } }) },
-  yAxis: { type: 'category', data: cp.map(d => d.team), ...axis({ splitLine: { show: false } }) },
+  yAxis: { type: 'category', data: cp.map(d => d.team),
+           ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 12, formatter: teamLabel, rich: flagRich(cp.map(d => d.team)) } }) },
   series: [{
-    type: 'bar', data: cp.map(d => d.p_champion),
-    barWidth: 16, itemStyle: { color: C.blue, borderRadius: [0, 4, 4, 0] },
+    type: 'bar', data: cp.map(d => ({ value: d.p_champion, itemStyle: { color: colorOf(d.team), borderRadius: [0, 4, 4, 0] } })),
+    barWidth: 16,
     label: { show: true, position: 'right', color: C.ink, fontWeight: 600, formatter: '{c}%' },
   }],
-  tooltip: { ...base.tooltip, formatter: p => `${p.name}: <b>${p.value}%</b> champion` },
+  tooltip: { ...base.tooltip, formatter: p => `${flagHTML(p.name)}${p.name}: <b>${p.value}%</b> champion` },
 });
 
 // ---- 2. bracket ----
 const qf = P.qf_probs;
+const nm = t => `<span class="side">${flagHTML(t, 'sm')}<span class="nm">${t}</span></span>`;
 const tie = (h, a, ph, meta) => `
   <div class="tie">
-    <div class="row"><span>${h}</span><span class="pct">${ph}%</span></div>
-    <div class="row"><span>${a}</span><span class="pct">${(100 - ph).toFixed(1)}%</span></div>
-    <div class="meta">${meta}</div>
+    <div class="row">${nm(h)}<span class="pct">${ph}%</span></div>
+    <div class="row">${nm(a)}<span class="pct">${(100 - ph).toFixed(1)}%</span></div>
+    ${meta ? `<div class="meta">${meta}</div>` : ''}
   </div>`;
 const pf = t => P.champion_probs.find(d => d.team === t);
 document.getElementById('bracket').innerHTML = `
@@ -324,7 +362,7 @@ document.getElementById('bracket').innerHTML = `
   </div>
   <div><div class="round-label">Champion</div>
     ${P.champion_probs.slice(0, 4).map(d =>
-      `<div class="tie"><div class="row"><span>${d.team}</span><span class="pct">${d.p_champion}%</span></div></div>`
+      `<div class="tie"><div class="row">${nm(d.team)}<span class="pct">${d.p_champion}%</span></div></div>`
     ).join('')}
   </div>`;
 
@@ -334,7 +372,7 @@ mk('roundsChart', {
   legend: { textStyle: { color: C.ink2, fontSize: 11 }, top: 0, icon: 'circle' },
   grid: { ...base.grid, top: 34 },
   xAxis: { type: 'category', data: rp.map(d => d.team),
-           ...axis({ axisLabel: { color: C.muted, fontSize: 10, interval: 0, rotate: 30 } }) },
+           ...axis({ axisLabel: { color: C.ink2, fontSize: 10, interval: 0, rotate: 35, formatter: teamLabel, rich: flagRich(rp.map(d => d.team)) } }) },
   yAxis: { type: 'value', ...axis({ axisLabel: { color: C.muted, formatter: '{value}%' } }) },
   series: [
     { name: 'Semi-final', type: 'bar', data: rp.map(d => d.p_semi), itemStyle: { color: C.blue, borderRadius: [3,3,0,0] }, barGap: '10%' },
@@ -348,13 +386,13 @@ mk('roundsChart', {
 const elo = W.elo.slice(0, 12).reverse();
 mk('eloChart', {
   xAxis: { type: 'value', min: 1900, ...axis() },
-  yAxis: { type: 'category', data: elo.map(d => d.team), ...axis({ splitLine: { show: false } }) },
+  yAxis: { type: 'category', data: elo.map(d => d.team),
+           ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 12, formatter: teamLabel, rich: flagRich(elo.map(d => d.team)) } }) },
   series: [{
-    type: 'bar', data: elo.map(d => d.elo), barWidth: 14,
-    itemStyle: { color: C.violet, borderRadius: [0, 4, 4, 0] },
+    type: 'bar', data: elo.map(d => ({ value: d.elo, itemStyle: { color: colorOf(d.team), borderRadius: [0, 4, 4, 0] } })), barWidth: 14,
     label: { show: true, position: 'right', color: C.ink2, fontSize: 11 },
   }],
-  tooltip: { ...base.tooltip, formatter: p => `${p.name}: Elo <b>${p.value}</b>` },
+  tooltip: { ...base.tooltip, formatter: p => `${flagHTML(p.name)}${p.name}: Elo <b>${p.value}</b>` },
 });
 
 // ---- 5. Golden Boot ----
@@ -362,13 +400,12 @@ const gb = [...W.golden_boot_2026.players].reverse();
 mk('bootChart', {
   xAxis: { type: 'value', max: 10, ...axis() },
   yAxis: { type: 'category', data: gb.map(d => `${d.player}  ·  ${d.team}`),
-           ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 12 } }) },
+           ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 12, formatter: comboLabel, rich: flagRich(gb.map(d => d.team)) } }) },
   series: [{
-    type: 'bar', data: gb.map(d => d.goals), barWidth: 16,
-    itemStyle: { color: C.aqua, borderRadius: [0, 4, 4, 0] },
+    type: 'bar', data: gb.map(d => ({ value: d.goals, itemStyle: { color: colorOf(d.team), borderRadius: [0, 4, 4, 0] } })), barWidth: 16,
     label: { show: true, position: 'right', color: C.ink, fontWeight: 600 },
   }],
-  tooltip: { ...base.tooltip, formatter: p => `${gb[p.dataIndex].player}: <b>${p.value}</b> goals` },
+  tooltip: { ...base.tooltip, formatter: p => `${flagHTML(gb[p.dataIndex].team)}${gb[p.dataIndex].player}: <b>${p.value}</b> goals` },
 });
 
 // ---- 6. QF form table ----
@@ -376,7 +413,7 @@ const alive = new Set(T.kpis.quarterfinalists);
 document.getElementById('formTable').innerHTML =
   '<tr><th>Team</th><th>Conf</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th></tr>' +
   T.teams.filter(t => alive.has(t.team)).map(t =>
-    `<tr><td class="team">${t.team}</td><td>${t.confederation}</td><td>${t.played}</td>
+    `<tr><td class="team">${flagHTML(t.team)}${t.team}</td><td>${t.confederation}</td><td>${t.played}</td>
      <td>${t.wins}</td><td>${t.draws}</td><td>${t.losses}</td><td>${t.gf}</td><td>${t.ga}</td></tr>`
   ).join('');
 
@@ -394,7 +431,7 @@ mk('goalsChart', {
   }],
   tooltip: { ...base.tooltip, trigger: 'axis',
     formatter: ps => { const d = pt[ps[0].dataIndex];
-      return `<b>${d.year} — ${d.host}</b><br>Champion: ${d.winner}<br>` +
+      return `<b>${d.year} — ${d.host}</b><br>Champion: ${flagHTML(d.winner)}${d.winner}<br>` +
              `${d.goals} goals in ${d.matches} matches (<b>${d.goals_per_match}</b>/match)`; } },
 });
 
@@ -419,14 +456,16 @@ mk('titlesChart', {
   legend: { textStyle: { color: C.ink2, fontSize: 11 }, top: 0, icon: 'circle' },
   grid: { ...base.grid, top: 34 },
   xAxis: { type: 'value', ...axis() },
-  yAxis: { type: 'category', data: tt.map(d => d.team), ...axis({ splitLine: { show: false } }) },
+  yAxis: { type: 'category', data: tt.map(d => d.team),
+           ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 11, formatter: teamLabel, rich: flagRich(tt.map(d => d.team)) } }) },
   series: [
-    { name: 'Titles', type: 'bar', stack: 's', data: tt.map(d => d.titles),
-      barWidth: 14, itemStyle: { color: C.blue, borderColor: C.surface, borderWidth: 1 },
+    { name: 'Titles', type: 'bar', stack: 's',
+      data: tt.map(d => ({ value: d.titles, itemStyle: { color: colorOf(d.team), borderColor: C.surface, borderWidth: 1 } })),
+      barWidth: 14,
       label: { show: true, position: 'inside', color: '#fff', fontSize: 10,
                formatter: p => p.value > 0 ? p.value : '' } },
-    { name: 'Runner-up', type: 'bar', stack: 's', data: tt.map(d => d.runner_up),
-      itemStyle: { color: 'rgba(57,135,229,0.35)', borderColor: C.surface, borderWidth: 1, borderRadius: [0,3,3,0] } },
+    { name: 'Runner-up', type: 'bar', stack: 's',
+      data: tt.map(d => ({ value: d.runner_up, itemStyle: { color: hexA(colorOf(d.team), 0.32), borderColor: C.surface, borderWidth: 1, borderRadius: [0,3,3,0] } })) },
   ],
   tooltip: { ...base.tooltip, trigger: 'axis',
     formatter: ps => { const d = tt[ps[0].dataIndex];
@@ -437,7 +476,7 @@ mk('titlesChart', {
 document.getElementById('confTable').innerHTML =
   '<tr><th>Confederation</th><th>Titles</th><th>Top-4</th><th>Matches</th><th>Win %</th><th>Goals</th></tr>' +
   H.confederations.map(c =>
-    `<tr><td class="team">${c.confederation}</td><td>${c.titles}</td><td>${c.top4}</td>
+    `<tr><td class="team"><span class="cdot" style="background:${CONF_COLOR[c.confederation] || C.muted}"></span>${c.confederation}</td><td>${c.titles}</td><td>${c.top4}</td>
      <td>${c.played.toLocaleString()}</td><td>${c.win_pct}%</td><td>${c.goals.toLocaleString()}</td></tr>`
   ).join('');
 
@@ -446,10 +485,9 @@ const sc = [...H.top_scorers].reverse();
 mk('scorersChart', {
   xAxis: { type: 'value', max: 18, ...axis() },
   yAxis: { type: 'category', data: sc.map(d => `${d.player}  ·  ${d.team}`),
-           ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 12 } }) },
+           ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 12, formatter: comboLabel, rich: flagRich(sc.map(d => d.team)) } }) },
   series: [{
-    type: 'bar', data: sc.map(d => d.goals), barWidth: 14,
-    itemStyle: { color: C.blue, borderRadius: [0, 4, 4, 0] },
+    type: 'bar', data: sc.map(d => ({ value: d.goals, itemStyle: { color: colorOf(d.team), borderRadius: [0, 4, 4, 0] } })), barWidth: 14,
     label: { show: true, position: 'right', color: C.ink, fontWeight: 600 },
   }],
   tooltip: { ...base.tooltip,
@@ -461,7 +499,7 @@ mk('scorersChart', {
 const ball = W.historical.award_winners.filter(a => a.award === 'Golden Ball').reverse();
 document.getElementById('ballTable').innerHTML =
   '<tr><th>Year</th><th>Player</th><th>Team</th></tr>' +
-  ball.map(a => `<tr><td>${a.year}</td><td class="team">${a.player}</td><td>${a.team}</td></tr>`).join('');
+  ball.map(a => `<tr><td>${a.year}</td><td class="team">${a.player}</td><td>${flagHTML(a.team)}${a.team}</td></tr>`).join('');
 </script>
 </body>
 </html>
