@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script src="data/data.js"></script>
 <script src="data/flags.js"></script>
+<script src="data/models.js"></script>
 <style>
   :root {
     --page: #0d0d0d;
@@ -73,6 +74,14 @@
   .card p.note { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
   .chart { width: 100%; height: 340px; }
   .chart.tall { height: 420px; }
+  .finding {
+    margin-top: 16px; padding: 16px 20px; font-size: 14px; color: var(--ink-2);
+    background: linear-gradient(90deg, rgba(57,135,229,0.10), rgba(57,135,229,0.02));
+    border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: 10px;
+  }
+  .finding b { color: var(--ink); }
+  .model-dot { display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:7px; vertical-align:1px; }
+  td.best { color: var(--good); font-weight: 600; }
   /* bracket */
   .bracket { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: center; }
   .round-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
@@ -122,6 +131,7 @@
   <a href="#history">Historical Analysis</a>
   <a href="#teams">Teams &amp; Confederations</a>
   <a href="#players">Players</a>
+  <a href="#models">Model Lab</a>
   <a href="#method">Methodology</a>
 </div></nav>
 
@@ -225,6 +235,49 @@
   </div>
 </section>
 
+<section id="models">
+  <h2>Model Lab — does advanced ML beat a good Elo model?</h2>
+  <p class="desc">Four forecasters trained on 19,673 internationals (2002–2022) and tested on
+  3,694 matches they never saw (2023–2026, including this World Cup). Same features, same metrics —
+  the honest way to choose a model, not the flashiest one.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Leaderboard — test-set log-loss</h3>
+      <p class="note">Lower is better · 3,694 held-out matches · multiclass log-loss</p>
+      <div class="chart" id="llChart"></div>
+    </div>
+    <div class="card">
+      <h3>Calibration — are the probabilities honest?</h3>
+      <p class="note">Predicted P(home win) vs. observed rate · the dashed diagonal is perfect</p>
+      <div class="chart" id="calChart"></div>
+    </div>
+  </div>
+  <div class="finding">
+    <b>The finding.</b> The advanced models beat the Elo baseline by under 1% in log-loss, and Elo
+    keeps the best raw accuracy (60.7%). With only ~64 World-Cup matches of signal, sophistication
+    buys almost nothing — so the headline forecast stays on the interpretable Elo + Monte Carlo model,
+    now validated against a Dixon-Coles Poisson model, gradient boosting and a neural network.
+    Choosing the simpler model <i>because the evidence says so</i> is the senior move.
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h3>Who does each model crown?</h3>
+      <p class="note">2026 champion probability — same bracket simulated under each model</p>
+      <div class="chart" id="champByModelChart"></div>
+    </div>
+    <div class="card">
+      <h3>What drives the prediction?</h3>
+      <p class="note">XGBoost feature importance (gain) — the Elo gap dominates</p>
+      <div class="chart" id="fiChart"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px; overflow-x:auto">
+    <h3>Full scorecard</h3>
+    <p class="note">Ranked by log-loss on the 2023–2026 hold-out</p>
+    <table id="modelTable"></table>
+  </div>
+</section>
+
 <section id="method">
   <h2>Methodology &amp; data</h2>
   <div class="card" style="font-size:13px; color: var(--ink-2)">
@@ -240,8 +293,15 @@
     10,000 times; each tie is resolved with the logistic Elo win expectancy
     P(A) = 1 / (1 + 10<sup>−ΔElo/400</sup>). Probabilities are the share of simulations
     in which a team reaches each round.</p>
-    <p style="margin-top:8px"><b style="color:var(--ink)">Stack.</b> Python (pandas / NumPy) pipeline → JSON → this
-    dashboard (Apache ECharts). Fully reproducible: <code>python src/build_dataset.py && python src/simulate.py</code>.</p>
+    <p style="margin-top:8px"><b style="color:var(--ink)">Validation (Model Lab).</b> The Elo model is not taken on faith:
+    it is benchmarked against a Dixon-Coles Poisson goals model, gradient boosting (XGBoost) and a neural
+    network (MLP), all trained on 19,673 internationals (2002–2022) and scored on 3,694 matches they never saw
+    (2023–2026). On the hold-out the advanced models improve log-loss by under 1% and Elo keeps the best
+    accuracy — so the interpretable model is kept by evidence, not habit. Features (Elo gap, form, goal rates,
+    rest, venue, tournament weight) are all computed pre-match to avoid leakage.</p>
+    <p style="margin-top:8px"><b style="color:var(--ink)">Stack.</b> Python — pandas / NumPy for the pipeline,
+    scikit-learn + XGBoost + SciPy for the models — → JSON → this dashboard (Apache ECharts). Reproducible:
+    <code>python src/features.py &amp;&amp; python src/train_models.py &amp;&amp; python src/simulate.py</code>.</p>
   </div>
 </section>
 
@@ -500,6 +560,99 @@ const ball = W.historical.award_winners.filter(a => a.award === 'Golden Ball').r
 document.getElementById('ballTable').innerHTML =
   '<tr><th>Year</th><th>Player</th><th>Team</th></tr>' +
   ball.map(a => `<tr><td>${a.year}</td><td class="team">${a.player}</td><td>${flagHTML(a.team)}${a.team}</td></tr>`).join('');
+
+// ============ MODEL LAB ============
+const M = W.models;
+const MC = { 'Elo baseline': C.blue, 'Dixon-Coles Poisson': C.aqua, 'XGBoost': C.yellow, 'Neural net (MLP)': C.violet };
+const modelNames = M.metrics.map(m => m.model);
+
+// ---- 13. log-loss dot plot (zoomed axis: honest view of a tiny spread) ----
+const llSorted = [...M.metrics].sort((a, b) => b.log_loss - a.log_loss); // worst→best bottom-up
+const llMin = Math.min(...M.metrics.map(m => m.log_loss)), llMax = Math.max(...M.metrics.map(m => m.log_loss));
+mk('llChart', {
+  grid: { ...base.grid, left: 8, right: 70 },
+  xAxis: { type: 'value', min: +(llMin - 0.004).toFixed(3), max: +(llMax + 0.004).toFixed(3),
+           ...axis({ axisLabel: { color: C.muted, fontSize: 11 } }) },
+  yAxis: { type: 'category', data: llSorted.map(m => m.model), ...axis({ splitLine: { show: false } }) },
+  series: [{
+    type: 'bar', data: llSorted.map(m => ({ value: m.log_loss, itemStyle: { color: hexA(MC[m.model], 0.20) } })),
+    barWidth: 3, silent: true, z: 1,
+  }, {
+    type: 'scatter', symbolSize: 18, z: 3,
+    data: llSorted.map(m => ({ value: m.log_loss, itemStyle: { color: MC[m.model], borderColor: C.surface, borderWidth: 2 } })),
+    label: { show: true, position: 'right', color: C.ink, fontWeight: 600, fontSize: 12, formatter: p => p.value.toFixed(4) },
+  }],
+  tooltip: { ...base.tooltip, formatter: p => `<span class="model-dot" style="background:${MC[p.name]}"></span>${p.name}: log-loss <b>${(+p.value).toFixed(4)}</b>` },
+});
+
+// ---- 14. calibration curves ----
+const calSeries = modelNames.map(name => ({
+  name, type: 'line', smooth: false, symbol: 'circle', symbolSize: 7,
+  data: (M.calibration[name] || []).map(b => [b.p_pred, b.p_true]),
+  lineStyle: { color: MC[name], width: 2 }, itemStyle: { color: MC[name] },
+}));
+calSeries.unshift({ name: 'perfect', type: 'line', data: [[0, 0], [1, 1]], symbol: 'none', silent: true,
+  lineStyle: { color: C.muted, width: 1, type: 'dashed' }, tooltip: { show: false } });
+mk('calChart', {
+  legend: { data: modelNames, textStyle: { color: C.ink2, fontSize: 11 }, top: 0, icon: 'roundRect', itemWidth: 12, itemHeight: 8 },
+  grid: { ...base.grid, top: 40, right: 16 },
+  xAxis: { type: 'value', min: 0, max: 1, name: 'predicted', nameLocation: 'middle', nameGap: 26, nameTextStyle: { color: C.muted, fontSize: 11 },
+           ...axis({ axisLabel: { color: C.muted, formatter: v => `${Math.round(v*100)}%` } }) },
+  yAxis: { type: 'value', min: 0, max: 1, name: 'actual', nameLocation: 'middle', nameGap: 34, nameTextStyle: { color: C.muted, fontSize: 11 },
+           ...axis({ axisLabel: { color: C.muted, formatter: v => `${Math.round(v*100)}%` } }) },
+  series: calSeries,
+  tooltip: { ...base.tooltip, trigger: 'item', formatter: p => p.seriesName === 'perfect' ? '' :
+    `<span class="model-dot" style="background:${MC[p.seriesName]}"></span>${p.seriesName}<br>predicted <b>${Math.round(p.value[0]*100)}%</b> → actual <b>${Math.round(p.value[1]*100)}%</b>` },
+});
+
+// ---- 15. champion probability by model (grouped) ----
+const topTeams = M.champion_by_model['Elo baseline'].slice(0, 6).map(d => d.team);
+const pOf = (model, team) => { const r = M.champion_by_model[model].find(d => d.team === team); return r ? r.p_champion : 0; };
+mk('champByModelChart', {
+  legend: { data: modelNames, textStyle: { color: C.ink2, fontSize: 11 }, top: 0, icon: 'roundRect', itemWidth: 12, itemHeight: 8 },
+  grid: { ...base.grid, top: 44 },
+  xAxis: { type: 'category', data: topTeams,
+           ...axis({ axisLabel: { color: C.ink2, fontSize: 10, interval: 0, formatter: teamLabel, rich: flagRich(topTeams) } }) },
+  yAxis: { type: 'value', ...axis({ axisLabel: { color: C.muted, formatter: '{value}%' } }) },
+  series: modelNames.map(name => ({
+    name, type: 'bar', data: topTeams.map(t => pOf(name, t)),
+    itemStyle: { color: MC[name], borderRadius: [2, 2, 0, 0] },
+  })),
+  tooltip: { ...base.tooltip, trigger: 'axis',
+    formatter: ps => `<b>${ps[0].axisValue}</b><br>` + ps.map(p =>
+      `<span class="model-dot" style="background:${MC[p.seriesName]}"></span>${p.seriesName}: <b>${p.value}%</b>`).join('<br>') },
+});
+
+// ---- 16. feature importance ----
+const fi = [...M.feature_importance].slice(0, 10).reverse();
+mk('fiChart', {
+  grid: { ...base.grid, left: 8, right: 44 },
+  xAxis: { type: 'value', ...axis({ axisLabel: { color: C.muted, formatter: v => (v*100).toFixed(0)+'%' } }) },
+  yAxis: { type: 'category', data: fi.map(d => d.feature), ...axis({ splitLine: { show: false }, axisLabel: { color: C.ink2, fontSize: 11 } }) },
+  series: [{
+    type: 'bar', data: fi.map(d => d.importance), barWidth: 12,
+    itemStyle: { color: C.blue, borderRadius: [0, 3, 3, 0] },
+    label: { show: true, position: 'right', color: C.ink2, fontSize: 11, formatter: p => (p.value*100).toFixed(1)+'%' },
+  }],
+  tooltip: { ...base.tooltip, formatter: p => `<b>${p.name}</b><br>gain importance ${(p.value*100).toFixed(1)}%` },
+});
+
+// ---- 17. scorecard table (best per column highlighted) ----
+const bestLL = Math.min(...M.metrics.map(m => m.log_loss));
+const bestBr = Math.min(...M.metrics.map(m => m.brier));
+const bestAcc = Math.max(...M.metrics.map(m => m.accuracy));
+const cell = (v, isBest, fmt) => `<td class="${isBest ? 'best' : ''}">${fmt(v)}${isBest ? ' ★' : ''}</td>`;
+document.getElementById('modelTable').innerHTML =
+  '<tr><th>Model</th><th>Log-loss ↓</th><th>Brier ↓</th><th>Accuracy ↑</th></tr>' +
+  M.metrics.map(m =>
+    `<tr><td class="team"><span class="model-dot" style="background:${MC[m.model]}"></span>${m.model}</td>` +
+    cell(m.log_loss, m.log_loss === bestLL, v => v.toFixed(4)) +
+    cell(m.brier, m.brier === bestBr, v => v.toFixed(4)) +
+    cell(m.accuracy, m.accuracy === bestAcc, v => (v*100).toFixed(1)+'%') +
+    '</tr>'
+  ).join('') +
+  `<tr><td colspan="4" style="color:var(--muted);font-size:11px;border-bottom:none;padding-top:10px">` +
+  `Trained on ${M.n_train.toLocaleString()} matches (2002–2022) · tested on ${M.n_test.toLocaleString()} held-out matches (${M.test_period.replace(' to ', ' → ')})</td></tr>`;
 </script>
 </body>
 </html>

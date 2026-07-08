@@ -33,7 +33,13 @@
       "Bash(node -e ' *)",
       "Bash(mkdir -p docs/flags)",
       "Bash(awk '{print $5, $9}')",
-      "Bash(rm -f docs/flags/*.svg)"
+      "Bash(rm -f docs/flags/*.svg)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://adavidbravo.github.io/fifa-worldcup-analytics/data/flags.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://adavidbravo.github.io/fifa-worldcup-analytics/flags/ar.png)",
+      "Bash(python -c ' *)",
+      "Bash(python features.py)",
+      "Bash(python train_models.py)",
+      "Bash(node scripts/validate_palette.js \"#3987e5,#199e70,#c98500,#9085e9\" --mode dark)"
     ]
   }
 }
