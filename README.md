@@ -38,8 +38,12 @@ Canada and Mexico, and a probabilistic forecast of who lifts the trophy on July 
 3. **Forecast** (`src/simulate.py`) — the confirmed quarter-final bracket simulated 10,000
    times with the logistic Elo win expectancy `P(A) = 1 / (1 + 10^(−ΔElo/400))`; seeded RNG
    for reproducibility.
-4. **Dashboard** (`dashboard/`) — Apache ECharts on a dark analytics theme; static site,
-   no backend required.
+4. **Dashboard** (`docs/`) — Apache ECharts on a dark analytics theme; static site,
+   no backend required (served by GitHub Pages).
+
+## Live dashboard
+
+**https://adavidbravo.github.io/fifa-worldcup-analytics/**
 
 ## Reproduce
 
@@ -48,8 +52,8 @@ pip install -r requirements.txt
 python src/build_dataset.py   # aggregates -> data/processed/
 python src/elo.py             # Elo ratings -> elo.json
 python src/simulate.py        # Monte Carlo  -> predictions.json
-python src/export_dashboard.py# bundle       -> dashboard/data/data.js
-python -m http.server 8123 --directory dashboard
+python src/export_dashboard.py# bundle       -> docs/data/data.js
+python -m http.server 8123 --directory docs
 ```
 
 Then open http://localhost:8123.

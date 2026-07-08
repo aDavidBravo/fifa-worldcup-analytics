@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
-OUT = ROOT / "dashboard" / "data" / "data.js"
+OUT = ROOT / "docs" / "data" / "data.js"
 
 payload = {
     p.stem: json.loads(p.read_text(encoding="utf-8"))

@@ -9,7 +9,13 @@
       "Bash(python simulate.py)",
       "Bash(python export_dashboard.py)",
       "Skill(dataviz)",
-      "Skill(dataviz:*)"
+      "Skill(dataviz:*)",
+      "Bash(gh --version)",
+      "Bash(gh auth *)",
+      "Read(//c/Users/David/.ssh/**)",
+      "Bash(where winget.exe)",
+      "Bash(powershell.exe -NoProfile -Command 'winget list --id GitHub.cli 2>$null | Select-String GitHub')",
+      "PowerShell(winget install --id GitHub.cli --accept-source-agreements --accept-package-agreements --silent 2>&1)"
     ]
   }
 }
