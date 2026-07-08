@@ -1,0 +1,8 @@
+# Generated data bundles — exclude from GitHub's language stats so the repo
+# is measured by the code that was written (Python + the dashboard), not by
+# the size of the datasets it produces.
+docs/data/*.js linguist-generated=true
+docs/flags/*.png linguist-vendored=true
+data/raw/*.csv linguist-vendored=true
+data/processed/*.csv linguist-generated=true
+data/processed/*.json linguist-generated=true

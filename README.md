@@ -216,5 +216,6 @@ Apache ECharts · vanilla JS/CSS (zero build step)
 
 ## License & attribution
 
-Data belongs to its original maintainers (see sources above). Analysis and dashboard code
-free to reuse with attribution. Probabilities are model estimates, not betting advice.
+Code ([MIT](LICENSE)) — analysis and dashboard code free to reuse with attribution.
+Data belongs to its original maintainers (see sources above). Probabilities are model
+estimates, not betting advice.
