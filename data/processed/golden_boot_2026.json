@@ -1,0 +1,12 @@
+{
+ "as_of": "2026-07-08",
+ "source": "FIFA.com / NBC Sports / Goal.com Golden Boot trackers",
+ "players": [
+  {"player": "Lionel Messi", "team": "Argentina", "goals": 8, "assists": 0},
+  {"player": "Kylian Mbappé", "team": "France", "goals": 7, "assists": 2},
+  {"player": "Erling Haaland", "team": "Norway", "goals": 7, "assists": 0},
+  {"player": "Harry Kane", "team": "England", "goals": 6, "assists": 0},
+  {"player": "Mikel Oyarzabal", "team": "Spain", "goals": 4, "assists": 0},
+  {"player": "Ousmane Dembélé", "team": "France", "goals": 4, "assists": 0}
+ ]
+}

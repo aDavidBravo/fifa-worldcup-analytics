@@ -1,0 +1,85 @@
+{
+ "n_sims": 10000,
+ "as_of": "2026-07-08",
+ "method": "Elo (full 1872-2026 history) + Monte Carlo",
+ "champion_probs": [
+  {
+   "team": "Argentina",
+   "elo": 2234,
+   "p_semi": 77.1,
+   "p_final": 52.0,
+   "p_champion": 28.9
+  },
+  {
+   "team": "Spain",
+   "elo": 2242,
+   "p_semi": 76.3,
+   "p_final": 46.4,
+   "p_champion": 27.4
+  },
+  {
+   "team": "France",
+   "elo": 2206,
+   "p_semi": 70.3,
+   "p_final": 36.0,
+   "p_champion": 19.7
+  },
+  {
+   "team": "England",
+   "elo": 2149,
+   "p_semi": 65.2,
+   "p_final": 28.5,
+   "p_champion": 12.6
+  },
+  {
+   "team": "Morocco",
+   "elo": 2055,
+   "p_semi": 29.7,
+   "p_final": 9.5,
+   "p_champion": 3.3
+  },
+  {
+   "team": "Norway",
+   "elo": 2042,
+   "p_semi": 34.8,
+   "p_final": 10.8,
+   "p_champion": 3.3
+  },
+  {
+   "team": "Belgium",
+   "elo": 2041,
+   "p_semi": 23.6,
+   "p_final": 8.1,
+   "p_champion": 2.5
+  },
+  {
+   "team": "Switzerland",
+   "elo": 2023,
+   "p_semi": 22.9,
+   "p_final": 8.7,
+   "p_champion": 2.3
+  }
+ ],
+ "qf_probs": [
+  {
+   "home": "France",
+   "away": "Morocco",
+   "p_home": 70.5
+  },
+  {
+   "home": "Spain",
+   "away": "Belgium",
+   "p_home": 76.1
+  },
+  {
+   "home": "Argentina",
+   "away": "Switzerland",
+   "p_home": 77.1
+  },
+  {
+   "home": "England",
+   "away": "Norway",
+   "p_home": 65.0
+  }
+ ]
+}

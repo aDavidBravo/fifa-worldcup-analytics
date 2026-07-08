@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import pandas, numpy; print\\('pandas', pandas.__version__, '| numpy', numpy.__version__\\)\")",
+      "Bash(curl -sfL \"https://raw.githubusercontent.com/martj42/international_results/master/shootouts.csv\" -o shootouts.csv)",
+      "WebSearch",
+      "Bash(python build_dataset.py)",
+      "Bash(python elo.py)",
+      "Bash(python simulate.py)",
+      "Bash(python export_dashboard.py)",
+      "Skill(dataviz)",
+      "Skill(dataviz:*)"
+    ]
+  }
+}

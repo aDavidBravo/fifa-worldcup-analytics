@@ -1,0 +1,1079 @@
+{
+ "kpis": {
+  "tournaments": 22,
+  "matches": 964,
+  "goals": 2720,
+  "teams_ever": 81,
+  "span": "1930-2022"
+ },
+ "per_tournament": [
+  {
+   "year": 1930,
+   "host": "Uruguay",
+   "winner": "Uruguay",
+   "teams": 13,
+   "matches": 18,
+   "goals": 70,
+   "goals_per_match": 3.89
+  },
+  {
+   "year": 1934,
+   "host": "Italy",
+   "winner": "Italy",
+   "teams": 16,
+   "matches": 17,
+   "goals": 70,
+   "goals_per_match": 4.12
+  },
+  {
+   "year": 1938,
+   "host": "France",
+   "winner": "Italy",
+   "teams": 15,
+   "matches": 18,
+   "goals": 84,
+   "goals_per_match": 4.67
+  },
+  {
+   "year": 1950,
+   "host": "Brazil",
+   "winner": "Uruguay",
+   "teams": 13,
+   "matches": 22,
+   "goals": 88,
+   "goals_per_match": 4.0
+  },
+  {
+   "year": 1954,
+   "host": "Switzerland",
+   "winner": "West Germany",
+   "teams": 16,
+   "matches": 26,
+   "goals": 140,
+   "goals_per_match": 5.38
+  },
+  {
+   "year": 1958,
+   "host": "Sweden",
+   "winner": "Brazil",
+   "teams": 16,
+   "matches": 35,
+   "goals": 126,
+   "goals_per_match": 3.6
+  },
+  {
+   "year": 1962,
+   "host": "Chile",
+   "winner": "Brazil",
+   "teams": 16,
+   "matches": 32,
+   "goals": 89,
+   "goals_per_match": 2.78
+  },
+  {
+   "year": 1966,
+   "host": "England",
+   "winner": "England",
+   "teams": 16,
+   "matches": 32,
+   "goals": 89,
+   "goals_per_match": 2.78
+  },
+  {
+   "year": 1970,
+   "host": "Mexico",
+   "winner": "Brazil",
+   "teams": 16,
+   "matches": 32,
+   "goals": 95,
+   "goals_per_match": 2.97
+  },
+  {
+   "year": 1974,
+   "host": "West Germany",
+   "winner": "West Germany",
+   "teams": 16,
+   "matches": 38,
+   "goals": 97,
+   "goals_per_match": 2.55
+  },
+  {
+   "year": 1978,
+   "host": "Argentina",
+   "winner": "Argentina",
+   "teams": 16,
+   "matches": 38,
+   "goals": 102,
+   "goals_per_match": 2.68
+  },
+  {
+   "year": 1982,
+   "host": "Spain",
+   "winner": "Italy",
+   "teams": 24,
+   "matches": 52,
+   "goals": 146,
+   "goals_per_match": 2.81
+  },
+  {
+   "year": 1986,
+   "host": "Mexico",
+   "winner": "Argentina",
+   "teams": 24,
+   "matches": 52,
+   "goals": 132,
+   "goals_per_match": 2.54
+  },
+  {
+   "year": 1990,
+   "host": "Italy",
+   "winner": "West Germany",
+   "teams": 24,
+   "matches": 52,
+   "goals": 115,
+   "goals_per_match": 2.21
+  },
+  {
+   "year": 1994,
+   "host": "United States",
+   "winner": "Brazil",
+   "teams": 24,
+   "matches": 52,
+   "goals": 141,
+   "goals_per_match": 2.71
+  },
+  {
+   "year": 1998,
+   "host": "France",
+   "winner": "France",
+   "teams": 32,
+   "matches": 64,
+   "goals": 171,
+   "goals_per_match": 2.67
+  },
+  {
+   "year": 2002,
+   "host": "Korea, Japan",
+   "winner": "Brazil",
+   "teams": 32,
+   "matches": 64,
+   "goals": 161,
+   "goals_per_match": 2.52
+  },
+  {
+   "year": 2006,
+   "host": "Germany",
+   "winner": "Italy",
+   "teams": 32,
+   "matches": 64,
+   "goals": 147,
+   "goals_per_match": 2.3
+  },
+  {
+   "year": 2010,
+   "host": "South Africa",
+   "winner": "Spain",
+   "teams": 32,
+   "matches": 64,
+   "goals": 145,
+   "goals_per_match": 2.27
+  },
+  {
+   "year": 2014,
+   "host": "Brazil",
+   "winner": "Germany",
+   "teams": 32,
+   "matches": 64,
+   "goals": 171,
+   "goals_per_match": 2.67
+  },
+  {
+   "year": 2018,
+   "host": "Russia",
+   "winner": "France",
+   "teams": 32,
+   "matches": 64,
+   "goals": 169,
+   "goals_per_match": 2.64
+  },
+  {
+   "year": 2022,
+   "host": "Qatar",
+   "winner": "Argentina",
+   "teams": 32,
+   "matches": 64,
+   "goals": 172,
+   "goals_per_match": 2.69
+  }
+ ],
+ "titles": [
+  {
+   "team": "Brazil",
+   "confederation": "CONMEBOL",
+   "titles": 5,
+   "runner_up": 2,
+   "top4": 11
+  },
+  {
+   "team": "Italy",
+   "confederation": "UEFA",
+   "titles": 4,
+   "runner_up": 2,
+   "top4": 8
+  },
+  {
+   "team": "West Germany",
+   "confederation": "UEFA",
+   "titles": 3,
+   "runner_up": 3,
+   "top4": 8
+  },
+  {
+   "team": "Argentina",
+   "confederation": "CONMEBOL",
+   "titles": 3,
+   "runner_up": 3,
+   "top4": 6
+  },
+  {
+   "team": "France",
+   "confederation": "UEFA",
+   "titles": 2,
+   "runner_up": 2,
+   "top4": 7
+  },
+  {
+   "team": "Uruguay",
+   "confederation": "CONMEBOL",
+   "titles": 2,
+   "runner_up": 0,
+   "top4": 5
+  },
+  {
+   "team": "Germany",
+   "confederation": "UEFA",
+   "titles": 1,
+   "runner_up": 1,
+   "top4": 5
+  },
+  {
+   "team": "England",
+   "confederation": "UEFA",
+   "titles": 1,
+   "runner_up": 0,
+   "top4": 3
+  },
+  {
+   "team": "Spain",
+   "confederation": "UEFA",
+   "titles": 1,
+   "runner_up": 0,
+   "top4": 2
+  },
+  {
+   "team": "Netherlands",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 3,
+   "top4": 5
+  },
+  {
+   "team": "Czechoslovakia",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 2,
+   "top4": 2
+  },
+  {
+   "team": "Hungary",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 2,
+   "top4": 2
+  },
+  {
+   "team": "Sweden",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 1,
+   "top4": 4
+  },
+  {
+   "team": "Croatia",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 1,
+   "top4": 3
+  },
+  {
+   "team": "Yugoslavia",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 2
+  },
+  {
+   "team": "Austria",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 2
+  },
+  {
+   "team": "Portugal",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 2
+  },
+  {
+   "team": "Poland",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 2
+  },
+  {
+   "team": "Belgium",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 2
+  },
+  {
+   "team": "United States",
+   "confederation": "CONCACAF",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 1
+  },
+  {
+   "team": "Chile",
+   "confederation": "CONMEBOL",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 1
+  },
+  {
+   "team": "Soviet Union",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 1
+  },
+  {
+   "team": "Bulgaria",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 1
+  },
+  {
+   "team": "Turkey",
+   "confederation": "UEFA",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 1
+  },
+  {
+   "team": "South Korea",
+   "confederation": "AFC",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 1
+  },
+  {
+   "team": "Morocco",
+   "confederation": "CAF",
+   "titles": 0,
+   "runner_up": 0,
+   "top4": 1
+  }
+ ],
+ "team_records": [
+  {
+   "team": "Brazil",
+   "appearances": 22,
+   "played": 114,
+   "wins": 79,
+   "draws": 14,
+   "gf": 237,
+   "ga": 108,
+   "losses": 21,
+   "titles": 5,
+   "confederation": "CONMEBOL"
+  },
+  {
+   "team": "Argentina",
+   "appearances": 18,
+   "played": 88,
+   "wins": 53,
+   "draws": 10,
+   "gf": 152,
+   "ga": 101,
+   "losses": 25,
+   "titles": 3,
+   "confederation": "CONMEBOL"
+  },
+  {
+   "team": "Italy",
+   "appearances": 18,
+   "played": 83,
+   "wins": 46,
+   "draws": 17,
+   "gf": 128,
+   "ga": 77,
+   "losses": 20,
+   "titles": 4,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "France",
+   "appearances": 16,
+   "played": 73,
+   "wins": 41,
+   "draws": 9,
+   "gf": 136,
+   "ga": 85,
+   "losses": 23,
+   "titles": 2,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "West Germany",
+   "appearances": 10,
+   "played": 62,
+   "wins": 39,
+   "draws": 11,
+   "gf": 131,
+   "ga": 77,
+   "losses": 12,
+   "titles": 3,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "England",
+   "appearances": 16,
+   "played": 74,
+   "wins": 33,
+   "draws": 18,
+   "gf": 104,
+   "ga": 68,
+   "losses": 23,
+   "titles": 1,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Germany",
+   "appearances": 10,
+   "played": 50,
+   "wins": 33,
+   "draws": 6,
+   "gf": 101,
+   "ga": 53,
+   "losses": 11,
+   "titles": 1,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Spain",
+   "appearances": 16,
+   "played": 67,
+   "wins": 32,
+   "draws": 12,
+   "gf": 108,
+   "ga": 75,
+   "losses": 23,
+   "titles": 1,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Netherlands",
+   "appearances": 11,
+   "played": 55,
+   "wins": 31,
+   "draws": 10,
+   "gf": 96,
+   "ga": 52,
+   "losses": 14,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Uruguay",
+   "appearances": 14,
+   "played": 59,
+   "wins": 26,
+   "draws": 12,
+   "gf": 89,
+   "ga": 76,
+   "losses": 21,
+   "titles": 2,
+   "confederation": "CONMEBOL"
+  },
+  {
+   "team": "Belgium",
+   "appearances": 14,
+   "played": 51,
+   "wins": 22,
+   "draws": 9,
+   "gf": 69,
+   "ga": 74,
+   "losses": 20,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Sweden",
+   "appearances": 12,
+   "played": 51,
+   "wins": 20,
+   "draws": 12,
+   "gf": 80,
+   "ga": 73,
+   "losses": 19,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Portugal",
+   "appearances": 8,
+   "played": 35,
+   "wins": 18,
+   "draws": 5,
+   "gf": 61,
+   "ga": 41,
+   "losses": 12,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Mexico",
+   "appearances": 17,
+   "played": 60,
+   "wins": 17,
+   "draws": 13,
+   "gf": 62,
+   "ga": 101,
+   "losses": 30,
+   "titles": 0,
+   "confederation": "CONCACAF"
+  },
+  {
+   "team": "Poland",
+   "appearances": 9,
+   "played": 38,
+   "wins": 17,
+   "draws": 6,
+   "gf": 49,
+   "ga": 50,
+   "losses": 15,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Croatia",
+   "appearances": 6,
+   "played": 30,
+   "wins": 17,
+   "draws": 4,
+   "gf": 43,
+   "ga": 33,
+   "losses": 9,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Yugoslavia",
+   "appearances": 9,
+   "played": 37,
+   "wins": 16,
+   "draws": 7,
+   "gf": 60,
+   "ga": 46,
+   "losses": 14,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Hungary",
+   "appearances": 9,
+   "played": 32,
+   "wins": 15,
+   "draws": 3,
+   "gf": 87,
+   "ga": 57,
+   "losses": 14,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Soviet Union",
+   "appearances": 7,
+   "played": 31,
+   "wins": 15,
+   "draws": 6,
+   "gf": 53,
+   "ga": 34,
+   "losses": 10,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Switzerland",
+   "appearances": 12,
+   "played": 41,
+   "wins": 14,
+   "draws": 7,
+   "gf": 55,
+   "ga": 73,
+   "losses": 20,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Austria",
+   "appearances": 7,
+   "played": 29,
+   "wins": 12,
+   "draws": 4,
+   "gf": 43,
+   "ga": 47,
+   "losses": 13,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "Chile",
+   "appearances": 9,
+   "played": 33,
+   "wins": 11,
+   "draws": 6,
+   "gf": 40,
+   "ga": 49,
+   "losses": 16,
+   "titles": 0,
+   "confederation": "CONMEBOL"
+  },
+  {
+   "team": "Czechoslovakia",
+   "appearances": 8,
+   "played": 30,
+   "wins": 11,
+   "draws": 5,
+   "gf": 44,
+   "ga": 45,
+   "losses": 14,
+   "titles": 0,
+   "confederation": "UEFA"
+  },
+  {
+   "team": "United States",
+   "appearances": 11,
+   "played": 37,
+   "wins": 9,
+   "draws": 8,
+   "gf": 40,
+   "ga": 66,
+   "losses": 20,
+   "titles": 0,
+   "confederation": "CONCACAF"
+  },
+  {
+   "team": "Denmark",
+   "appearances": 6,
+   "played": 23,
+   "wins": 9,
+   "draws": 5,
+   "gf": 31,
+   "ga": 29,
+   "losses": 9,
+   "titles": 0,
+   "confederation": "UEFA"
+  }
+ ],
+ "confederations": [
+  {
+   "confederation": "UEFA",
+   "played": 1083,
+   "win_pct": 45.2,
+   "goals": 1681,
+   "titles": 12,
+   "top4": 62
+  },
+  {
+   "confederation": "CONMEBOL",
+   "played": 380,
+   "win_pct": 51.6,
+   "goals": 616,
+   "titles": 10,
+   "top4": 23
+  },
+  {
+   "confederation": "AFC",
+   "played": 143,
+   "win_pct": 18.9,
+   "goals": 120,
+   "titles": 0,
+   "top4": 1
+  },
+  {
+   "confederation": "CAF",
+   "played": 162,
+   "win_pct": 23.5,
+   "goals": 157,
+   "titles": 0,
+   "top4": 1
+  },
+  {
+   "confederation": "CONCACAF",
+   "played": 154,
+   "win_pct": 22.7,
+   "goals": 142,
+   "titles": 0,
+   "top4": 1
+  },
+  {
+   "confederation": "OFC",
+   "played": 6,
+   "win_pct": 0.0,
+   "goals": 4,
+   "titles": 0,
+   "top4": 0
+  }
+ ],
+ "top_scorers": [
+  {
+   "player": "Miroslav Klose",
+   "team": "Germany",
+   "goals": 16,
+   "tournaments": 4
+  },
+  {
+   "player": "Ronaldo",
+   "team": "Brazil",
+   "goals": 15,
+   "tournaments": 3
+  },
+  {
+   "player": "Gerd Müller",
+   "team": "West Germany",
+   "goals": 14,
+   "tournaments": 2
+  },
+  {
+   "player": "Lionel Messi",
+   "team": "Argentina",
+   "goals": 13,
+   "tournaments": 4
+  },
+  {
+   "player": "Just Fontaine",
+   "team": "France",
+   "goals": 13,
+   "tournaments": 1
+  },
+  {
+   "player": "Kylian Mbappé",
+   "team": "France",
+   "goals": 12,
+   "tournaments": 2
+  },
+  {
+   "player": "Pelé",
+   "team": "Brazil",
+   "goals": 12,
+   "tournaments": 4
+  },
+  {
+   "player": "Jürgen Klinsmann",
+   "team": "West Germany",
+   "goals": 11,
+   "tournaments": 3
+  },
+  {
+   "player": "Sándor Kocsis",
+   "team": "Hungary",
+   "goals": 11,
+   "tournaments": 1
+  },
+  {
+   "player": "Gabriel Batistuta",
+   "team": "Argentina",
+   "goals": 10,
+   "tournaments": 3
+  },
+  {
+   "player": "Gary Lineker",
+   "team": "England",
+   "goals": 10,
+   "tournaments": 2
+  },
+  {
+   "player": "Teófilo Cubillas",
+   "team": "Peru",
+   "goals": 10,
+   "tournaments": 2
+  },
+  {
+   "player": "Thomas Müller",
+   "team": "Germany",
+   "goals": 10,
+   "tournaments": 2
+  },
+  {
+   "player": "Helmut Rahn",
+   "team": "West Germany",
+   "goals": 10,
+   "tournaments": 2
+  },
+  {
+   "player": "Grzegorz Lato",
+   "team": "Poland",
+   "goals": 10,
+   "tournaments": 3
+  }
+ ],
+ "award_winners": [
+  {
+   "year": 1930,
+   "award": "Golden Boot",
+   "player": "Guillermo Stábile",
+   "team": "Argentina"
+  },
+  {
+   "year": 1934,
+   "award": "Golden Boot",
+   "player": "Oldřich Nejedlý",
+   "team": "Czechoslovakia"
+  },
+  {
+   "year": 1938,
+   "award": "Golden Boot",
+   "player": "Leônidas",
+   "team": "Brazil"
+  },
+  {
+   "year": 1950,
+   "award": "Golden Boot",
+   "player": "Ademir",
+   "team": "Brazil"
+  },
+  {
+   "year": 1954,
+   "award": "Golden Boot",
+   "player": "Sándor Kocsis",
+   "team": "Hungary"
+  },
+  {
+   "year": 1958,
+   "award": "Golden Boot",
+   "player": "Just Fontaine",
+   "team": "France"
+  },
+  {
+   "year": 1962,
+   "award": "Golden Boot",
+   "player": "Flórián Albert",
+   "team": "Hungary"
+  },
+  {
+   "year": 1962,
+   "award": "Golden Boot",
+   "player": "Garrincha",
+   "team": "Brazil"
+  },
+  {
+   "year": 1962,
+   "award": "Golden Boot",
+   "player": "Valentin Ivanov",
+   "team": "Soviet Union"
+  },
+  {
+   "year": 1962,
+   "award": "Golden Boot",
+   "player": "Dražan Jerković",
+   "team": "Yugoslavia"
+  },
+  {
+   "year": 1962,
+   "award": "Golden Boot",
+   "player": "Leonel Sánchez",
+   "team": "Chile"
+  },
+  {
+   "year": 1962,
+   "award": "Golden Boot",
+   "player": "Vavá",
+   "team": "Brazil"
+  },
+  {
+   "year": 1966,
+   "award": "Golden Boot",
+   "player": "Eusébio",
+   "team": "Portugal"
+  },
+  {
+   "year": 1970,
+   "award": "Golden Boot",
+   "player": "Gerd Müller",
+   "team": "West Germany"
+  },
+  {
+   "year": 1974,
+   "award": "Golden Boot",
+   "player": "Grzegorz Lato",
+   "team": "Poland"
+  },
+  {
+   "year": 1978,
+   "award": "Golden Ball",
+   "player": "Mario Kempes",
+   "team": "Argentina"
+  },
+  {
+   "year": 1978,
+   "award": "Golden Boot",
+   "player": "Mario Kempes",
+   "team": "Argentina"
+  },
+  {
+   "year": 1982,
+   "award": "Golden Ball",
+   "player": "Paolo Rossi",
+   "team": "Italy"
+  },
+  {
+   "year": 1982,
+   "award": "Golden Boot",
+   "player": "Paolo Rossi",
+   "team": "Italy"
+  },
+  {
+   "year": 1986,
+   "award": "Golden Ball",
+   "player": "Diego Maradona",
+   "team": "Argentina"
+  },
+  {
+   "year": 1986,
+   "award": "Golden Boot",
+   "player": "Gary Lineker",
+   "team": "England"
+  },
+  {
+   "year": 1990,
+   "award": "Golden Ball",
+   "player": "Salvatore Schillaci",
+   "team": "Italy"
+  },
+  {
+   "year": 1990,
+   "award": "Golden Boot",
+   "player": "Salvatore Schillaci",
+   "team": "Italy"
+  },
+  {
+   "year": 1994,
+   "award": "Golden Ball",
+   "player": "Romário",
+   "team": "Brazil"
+  },
+  {
+   "year": 1994,
+   "award": "Golden Boot",
+   "player": "Oleg Salenko",
+   "team": "Russia"
+  },
+  {
+   "year": 1994,
+   "award": "Golden Boot",
+   "player": "Hristo Stoichkov",
+   "team": "Bulgaria"
+  },
+  {
+   "year": 1998,
+   "award": "Golden Ball",
+   "player": "Ronaldo",
+   "team": "Brazil"
+  },
+  {
+   "year": 1998,
+   "award": "Golden Boot",
+   "player": "Davor Šuker",
+   "team": "Croatia"
+  },
+  {
+   "year": 2002,
+   "award": "Golden Ball",
+   "player": "Oliver Kahn",
+   "team": "Germany"
+  },
+  {
+   "year": 2002,
+   "award": "Golden Boot",
+   "player": "Ronaldo",
+   "team": "Brazil"
+  },
+  {
+   "year": 2006,
+   "award": "Golden Ball",
+   "player": "Zinedine Zidane",
+   "team": "France"
+  },
+  {
+   "year": 2006,
+   "award": "Golden Boot",
+   "player": "Miroslav Klose",
+   "team": "Germany"
+  },
+  {
+   "year": 2010,
+   "award": "Golden Ball",
+   "player": "Diego Forlán",
+   "team": "Uruguay"
+  },
+  {
+   "year": 2010,
+   "award": "Golden Boot",
+   "player": "Thomas Müller",
+   "team": "Germany"
+  },
+  {
+   "year": 2014,
+   "award": "Golden Ball",
+   "player": "Lionel Messi",
+   "team": "Argentina"
+  },
+  {
+   "year": 2014,
+   "award": "Golden Boot",
+   "player": "James Rodríguez",
+   "team": "Colombia"
+  },
+  {
+   "year": 2018,
+   "award": "Golden Ball",
+   "player": "Luka Modrić",
+   "team": "Croatia"
+  },
+  {
+   "year": 2018,
+   "award": "Golden Boot",
+   "player": "Harry Kane",
+   "team": "England"
+  },
+  {
+   "year": 2022,
+   "award": "Golden Ball",
+   "player": "Lionel Messi",
+   "team": "Argentina"
+  },
+  {
+   "year": 2022,
+   "award": "Golden Boot",
+   "player": "Kylian Mbappé",
+   "team": "France"
+  }
+ ]
+}
