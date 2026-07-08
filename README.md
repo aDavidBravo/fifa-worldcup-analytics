@@ -216,6 +216,6 @@ Apache ECharts · vanilla JS/CSS (zero build step)
 
 ## License & attribution
 
-Code ([MIT](LICENSE)) — analysis and dashboard code free to reuse with attribution.
-Data belongs to its original maintainers (see sources above). Probabilities are model
-estimates, not betting advice.
+Code ([MIT](LICENSE)) covers the analysis and dashboard (`src/`, `docs/`) — free to reuse
+with attribution. The underlying World Cup datasets belong to their original maintainers
+(see "Data sources" above). Probabilities are model estimates, not betting advice.
